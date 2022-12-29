@@ -10,9 +10,13 @@ return function (config, default_configs)
         configs = default_configs
     end
     for lsp, c in pairs(configs) do
-      for k, v in pairs(c) do
-          config[k] = v
+      local lsp_config = {}
+      for k, v in pairs(config) do
+          lsp_config[k] = v
       end
-      require'lspconfig'[lsp].setup(config)
+      for k, v in pairs(c) do
+          lsp_config[k] = v
+      end
+      require'lspconfig'[lsp].setup(lsp_config)
     end
 end
